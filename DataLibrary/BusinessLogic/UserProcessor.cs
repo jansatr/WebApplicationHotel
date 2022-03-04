@@ -10,19 +10,22 @@ namespace DataLibrary.BusinessLogic
 {
     public static class UserProcessor
     {
-        public static int CreateUser(string emailAddress)
+        public static int CreateUser(string emailAddress, string firstName, string lastName, int identityNumber)
         {
             UserModel data = new UserModel
             {
-                EmailAddress = emailAddress
+                EmailAddress = emailAddress,
+                FirstName = firstName,
+                LastName=lastName,
+                IdentityNumber=identityNumber
             };
             //string sql = @"insert into dbo.User (EmailAddress) values(@EmailAddress);";
-            string sql = @"insert into [dbo].[User] (EmailAddress) values (@EmailAddress);";
+            string sql = @"insert into [dbo].[User] (EmailAddress, FirstName, LastName, IdentityNumber) values (@EmailAddress, @FirstName, @LastName, @IdentityNumber);";
             return SqlDataAccess.SaveData(sql, data);
         }
         public static List<UserModel> LoadUsers()
         {
-            string sql = @"select Id, EmailAddress from [dbo].[User];";
+            string sql = @"select Id, EmailAddress, FirstName, LastName, IdentityNumber from [dbo].[User];";
             return SqlDataAccess.LoadData<UserModel>(sql);
         }
     }

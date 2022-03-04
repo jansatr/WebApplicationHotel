@@ -38,6 +38,9 @@ namespace WebApplicationHotel.Controllers
             {
                 users.Add(new UserModel
                 {
+                    FirstName= user.FirstName,
+                    LastName= user.LastName,
+                    IdentityNumber= user.IdentityNumber,
                     EmailAddress = user.EmailAddress
                 });
             }
@@ -58,7 +61,7 @@ namespace WebApplicationHotel.Controllers
         {
            if (ModelState.IsValid)
             {
-                int recordsCreated=UserProcessor.CreateUser(model.EmailAddress);
+                int recordsCreated=UserProcessor.CreateUser(model.EmailAddress,model.FirstName,model.LastName,model.IdentityNumber);
                 return RedirectToAction("Index");
             }
 

@@ -8,6 +8,15 @@ namespace WebApplicationHotel.Models
 {
     public class UserModel
     {
+        [Display(Name = "Eesnimi")]
+        [Required]
+        public string FirstName { get; set; }
+        [Display(Name = "Perekonnanimi")]
+        [Required]
+        public string LastName { get; set; }
+        [Display(Name ="Isikukood")]
+        [Required]
+        public int IdentityNumber { get; set; }
 
         [Display(Name = "Email")]
         [EmailAddress(ErrorMessage ="Tegemist pole emaili aadressiga. Palun kontrolli üle")]
