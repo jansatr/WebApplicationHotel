@@ -7,7 +7,9 @@ using System.Web;
 namespace WebApplicationHotel.Models
 {
     public class UserModel
+
     {
+        public int Id { get; set; }
         [Display(Name = "Eesnimi")]
         [Required]
         public string FirstName { get; set; }

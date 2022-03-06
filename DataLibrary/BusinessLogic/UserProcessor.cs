@@ -19,6 +19,7 @@ namespace DataLibrary.BusinessLogic
                 LastName=lastName,
                 IdentityNumber=identityNumber
             };
+
             //string sql = @"insert into dbo.User (EmailAddress) values(@EmailAddress);";
             string sql = @"insert into [dbo].[User] (EmailAddress, FirstName, LastName, IdentityNumber) values (@EmailAddress, @FirstName, @LastName, @IdentityNumber);";
             return SqlDataAccess.SaveData(sql, data);

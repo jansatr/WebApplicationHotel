@@ -22,7 +22,17 @@ namespace DataLibrary.DataAccess
         {
             using (IDbConnection con = new SqlConnection(GetConnectionString()))
             {
+                
                 return con.Query<T>(sql).ToList();
+            }
+        }
+
+        public static List<T> LoadRoomsData<T>(string sql, object p1, object p2)
+           // public static List<T> LoadRoomsData<T>(string sql, DateTime? DateFrom, DateTime? DateTo)
+        {
+            using (IDbConnection con = new SqlConnection(GetConnectionString()))
+            {
+                return con.Query<T>(sql,new { BookingFromDate = p1, BookingToDate =p2 }).ToList();
             }
         }
 
@@ -33,5 +43,10 @@ namespace DataLibrary.DataAccess
                 return con.Execute(sql,data);
             }
         }
+
+        //internal static List<T> LoadRoomsData<T>(string sql, object p1, object p2)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

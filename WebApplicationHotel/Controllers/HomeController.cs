@@ -67,5 +67,52 @@ namespace WebApplicationHotel.Controllers
 
             return View();
         }
+        public ActionResult Booking()
+        {
+            ViewBag.Message = "Toa broneerimine";
+
+            return View();
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Booking(BookingModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var data =BookingProcessor.LoadAvailableRooms(model.CheckInDay, model.CheckOutDay);
+                List<BookingModel> rooms = new List<BookingModel>();
+                foreach (var room in data)
+                {
+                    rooms.Add(new BookingModel
+                    {
+                         RoomSize=room.RoomSize,
+                         RoomPrice=room.RoomPrize,
+
+
+
+                       // LastName = room.LastName,
+                       // IdentityNumber = room.IdentityNumber,
+                       // EmailAddress = room.EmailAddress
+                    });
+                }
+                //Response.Write(rooms.ToString().);
+                return View("Details", rooms);
+                //return RedirectToAction("Index");
+            }
+            ViewBag.Message = "Users list.";
+
+            return View();
+            
+            //return View();
+            
+        }
+
+        public ActionResult Details() { 
+        return View();
+        }
+
     }
 }
