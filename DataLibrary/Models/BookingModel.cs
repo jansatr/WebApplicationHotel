@@ -17,7 +17,7 @@ namespace DataLibrary.Models
 
         public int RoomSize { get; set; }
 
-        public double RoomPrize { get; set; }
+        public double RoomPrice { get; set; }
 
         public double TotalAmount { get; set; }
 

@@ -89,7 +89,7 @@ namespace WebApplicationHotel.Controllers
                     rooms.Add(new BookingModel
                     {
                          RoomSize=room.RoomSize,
-                         RoomPrice=room.RoomPrize,
+                         RoomPrice=room.RoomPrice,
 
 
 
@@ -98,9 +98,12 @@ namespace WebApplicationHotel.Controllers
                        // EmailAddress = room.EmailAddress
                     });
                 }
+                TempData["loginModel"] = model;
+                ViewBag.CheckinDay = model.CheckInDay;
+                ViewBag.CheckOutDay = model.CheckOutDay;
                 //Response.Write(rooms.ToString().);
-                return View("Details", rooms);
-                //return RedirectToAction("Index");
+                //return View("Details");
+                return RedirectToAction("Details");
             }
             ViewBag.Message = "Users list.";
 
@@ -110,8 +113,26 @@ namespace WebApplicationHotel.Controllers
             
         }
 
-        public ActionResult Details() { 
-        return View();
+        public ActionResult Details() {
+            var model = TempData["loginModel"] as BookingModel;
+            ViewBag.Message = "Welcome " + model.CheckInDay;
+            var data = BookingProcessor.LoadAvailableRooms(model.CheckInDay, model.CheckOutDay);
+            List<BookingModel> rooms = new List<BookingModel>();
+            foreach (var room in data)
+            {
+                rooms.Add(new BookingModel
+                {
+                    RoomSize = room.RoomSize,
+                    RoomPrice = room.RoomPrice,
+
+
+
+                    // LastName = room.LastName,
+                    // IdentityNumber = room.IdentityNumber,
+                    // EmailAddress = room.EmailAddress
+                });
+            }
+            return View(rooms);
         }
 
     }

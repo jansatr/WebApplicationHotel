@@ -28,7 +28,7 @@ namespace WebApplicationHotel.Models
         public int RoomSize { get; set; }
 
         [Display(Name = "Öö hind")]
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         public double RoomPrice { get; set; }
     }
 }
