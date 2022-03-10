@@ -30,5 +30,11 @@ namespace WebApplicationHotel.Models
         [Display(Name = "Öö hind")]
         //[DataType(DataType.Date)]
         public double RoomPrice { get; set; }
+
+        [Display(Name = "Hind kokku")]
+        //[DataType(DataType.Date)]
+        public double RoomPriceTotal { get; set; }
+
+
     }
 }

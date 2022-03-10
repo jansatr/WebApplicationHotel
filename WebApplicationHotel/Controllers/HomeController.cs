@@ -85,14 +85,14 @@ namespace WebApplicationHotel.Controllers
                 var data =BookingProcessor.LoadAvailableRooms(model.CheckInDay, model.CheckOutDay);
                 List<BookingModel> rooms = new List<BookingModel>();
                 foreach (var room in data)
-                {
+                { 
+                    
                     rooms.Add(new BookingModel
                     {
+                        
                          RoomSize=room.RoomSize,
-                         RoomPrice=room.RoomPrice,
-
-
-
+                         RoomPrice=room.RoomPrice
+                         
                        // LastName = room.LastName,
                        // IdentityNumber = room.IdentityNumber,
                        // EmailAddress = room.EmailAddress
@@ -103,7 +103,7 @@ namespace WebApplicationHotel.Controllers
                 ViewBag.CheckOutDay = model.CheckOutDay;
                 //Response.Write(rooms.ToString().);
                 //return View("Details");
-                return RedirectToAction("Details");
+                return RedirectToAction("BookingDetails");
             }
             ViewBag.Message = "Users list.";
 
@@ -113,24 +113,23 @@ namespace WebApplicationHotel.Controllers
             
         }
 
-        public ActionResult Details() {
+        public ActionResult BookingDetails() {
             var model = TempData["loginModel"] as BookingModel;
-            ViewBag.Message = "Welcome " + model.CheckInDay;
+            //ViewBag.Message = "Welcome " + model.CheckInDay;
             var data = BookingProcessor.LoadAvailableRooms(model.CheckInDay, model.CheckOutDay);
             List<BookingModel> rooms = new List<BookingModel>();
             foreach (var room in data)
             {
+                TimeSpan Difference = ((TimeSpan)(model.CheckOutDay - model.CheckInDay));
                 rooms.Add(new BookingModel
                 {
                     RoomSize = room.RoomSize,
                     RoomPrice = room.RoomPrice,
-
-
-
+                    RoomPriceTotal = Difference.Days * room.RoomPrice
                     // LastName = room.LastName,
                     // IdentityNumber = room.IdentityNumber,
                     // EmailAddress = room.EmailAddress
-                });
+                }); ;
             }
             return View(rooms);
         }
