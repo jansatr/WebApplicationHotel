@@ -13,7 +13,7 @@ namespace DataLibrary.BusinessLogic
     public static class BookingProcessor
 
     {
-        public static int CreateBooking(int roomId, DateTime bookingFrom, DateTime bookingTo, int customerId, double totalAmount)
+        public static int CreateBooking(int roomId, DateTime? bookingFrom, DateTime? bookingTo, int customerId, double totalAmount)
         {
              BookingModel data = new BookingModel
             {
@@ -27,6 +27,7 @@ namespace DataLibrary.BusinessLogic
                 CustomerId=customerId,
 
                 TotalAmount=totalAmount
+                
 
             };
             //string sql = @"insert into dbo.User (EmailAddress) values(@EmailAddress);";
@@ -45,7 +46,7 @@ namespace DataLibrary.BusinessLogic
 
             };
             
-            string sql = @"SELECT [dbo].[Room].RoomSize, [dbo].[Room].RoomPrice, [dbo].[Room].Description
+            string sql = @"SELECT [dbo].[Room].RoomSize, [dbo].[Room].RoomPrice, [dbo].[Room].Description, [dbo].[Room].RoomId
                             FROM Booking
                             INNER JOIN [dbo].[Room] ON [dbo].[Booking].AssignedRoomId=[dbo].[Room].RoomId
                             WHERE (([dbo].[Booking].BookingFrom > @BookingFromDate AND [dbo].[Booking].BookingFrom >= @BookingToDate) 
@@ -56,6 +57,15 @@ namespace DataLibrary.BusinessLogic
            // return SqlDataAccess.SaveData(sql, data);
             return SqlDataAccess.LoadRoomsData<BookingModel>(sql, ArrivalDate, DepartureDate);
             //eturn SqlDataAccess.LoadRoomsData<BookingModel>(sql, new { BookingFromDate = data.BookingFrom??DateTime.Now }, new { BookingToDate = data.BookingTo??DateTime.Now });
+
+        }
+
+        public static List<BookingModel> LoadRoom() {
+
+            string sql = @"SELECT [dbo].[Room].RoomSize, [dbo].[Room].RoomPrice, [dbo].[Room].Description, [dbo].[Room].RoomId
+                            FROM Room;";
+
+            return SqlDataAccess.LoadData<BookingModel>(sql);
 
         }
     }

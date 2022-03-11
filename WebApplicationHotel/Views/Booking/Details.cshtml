@@ -1,0 +1,45 @@
+﻿@*@model WebApplicationHotel.Models.BookingModel*@
+@model IEnumerable<WebApplicationHotel.Models.BookingModel>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RoomModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomSize)
+        </dt>
+        @{
+            var result = Model.GroupBy(x => x.RoomPrice);
+
+        }
+        @foreach (var item in Model)
+
+        {
+            <dd>
+                @Html.DisplayFor(model => item.RoomSize)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomPrice)
+        </dt>
+        @foreach (var item in Model)
+        {
+            <dd>
+                @Html.DisplayFor(model => item.RoomPrice)
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

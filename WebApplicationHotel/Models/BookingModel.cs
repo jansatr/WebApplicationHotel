@@ -8,6 +8,7 @@ namespace WebApplicationHotel.Models
 {
     public class BookingModel
     {
+        public int RoomId { get; set; }
 
         [Display(Name = "Alates")]
         [DataType(DataType.Date)]
@@ -34,6 +35,8 @@ namespace WebApplicationHotel.Models
         [Display(Name = "Hind kokku")]
         //[DataType(DataType.Date)]
         public double RoomPriceTotal { get; set; }
+
+        public int UserId { get; set; }      
 
 
     }

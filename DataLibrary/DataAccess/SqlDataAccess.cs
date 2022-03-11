@@ -26,6 +26,14 @@ namespace DataLibrary.DataAccess
                 return con.Query<T>(sql).ToList();
             }
         }
+        //public static List<T> LoadRoom<T>(string sql, object p1)
+        //{
+        //    using (IDbConnection con = new SqlConnection(GetConnectionString()))
+        //    {
+
+        //        return con.Query<T>(sql, new { ID=p1 }).ToList();
+        //    }
+        //}
 
         public static List<T> LoadRoomsData<T>(string sql, object p1, object p2)
            // public static List<T> LoadRoomsData<T>(string sql, DateTime? DateFrom, DateTime? DateTo)
