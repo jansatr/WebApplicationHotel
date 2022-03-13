@@ -1,0 +1,49 @@
+﻿
+@model WebApplicationHotel.Models.UserModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Logi sisse</h2>
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Sisselogimisvorm</legend>
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (@ViewBag.Message != null)
+        {
+            <div style="border: 1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+        <table>
+            <tr>
+                <td>@Html.LabelFor(Model => Model.EmailAddress)</td>
+                <td>@Html.TextBoxFor(model => Model.EmailAddress)</td>
+                <td>@Html.ValidationMessageFor(a => Model.EmailAddress)</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(Model => Model.Password)
+                </td>
+                <td>
+                    @Html.PasswordFor(Model => Model.Password)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(Model => Model.Password)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </fieldset>
+}
+

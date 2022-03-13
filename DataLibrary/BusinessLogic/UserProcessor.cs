@@ -29,6 +29,16 @@ namespace DataLibrary.BusinessLogic
             string sql = @"select Id, EmailAddress, FirstName, LastName, IdentityNumber from [dbo].[User];";
             return SqlDataAccess.LoadData<UserModel>(sql);
         }
+
+        public static List<UserModel> LoadUser(string email)
+        {
+
+            string sql = @"SELECT [dbo].[User].Id, [dbo].[User].Password, [dbo].[User].Firstname, [dbo].[User].Lastname, [dbo].[User].EmailAddress
+                            FROM [dbo].[User] WHERE [dbo].[User].EmailAddress=@param;";
+
+            return SqlDataAccess.LoadDataWithParam<UserModel>(sql, email);
+
+        }
     }
 
 }

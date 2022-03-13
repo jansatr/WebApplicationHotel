@@ -5,10 +5,12 @@
 }
 
 <h2>BookingDetails</h2>
+            @ViewBag.CheckInDay
+            @ViewBag.CheckOutDay
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -23,24 +25,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoomSize)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoomPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoomPriceTotal)
-        </td>
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
-            @Html.ActionLink("Edit", "BookingDone", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { id = item.RoomId }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomPriceTotal)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                @*@Html.Action("Details")*@
+                @*@Html.ActionLink("Edit", "BookingDone", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink("Details", "Details", new { id = item.RoomId }) |
+                @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                <input type="button" title="Broneeri" value="save" onclick="location.href='@Url.Action("Details", "Booking", new { id = item.RoomId})'" />
+
+                @ViewBag.CheckInDay
+                @ViewBag.CheckOutDay
+            </td>
+        </tr>
+    }
 
 </table>

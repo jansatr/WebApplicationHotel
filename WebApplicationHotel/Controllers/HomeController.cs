@@ -9,13 +9,14 @@ using DataLibrary.BusinessLogic;
 
 namespace WebApplicationHotel.Controllers
 {
+    
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
             return View();
         }
-
+        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -29,6 +30,32 @@ namespace WebApplicationHotel.Controllers
 
             return View();
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UserModel model)
+        {
+            //if (ModelState.IsValid)
+            {
+                var data = UserProcessor.LoadUser(model.EmailAddress);
+               
+                var user = data.Where(u => u.Password.ToString().Trim() == model.Password.ToString()).FirstOrDefault();
+                if (user != null)
+                {
+                    Session["UserID"] = (int)user.Id;
+                    Session["UserName"] = user.FirstName.ToString();
+                    return RedirectToAction("../Booking/Booking");
+                }
+
+            }
+            return View(model);
+        }
+        
         public ActionResult ViewUsers()
         {
             ViewBag.Message = "Users list.";
@@ -72,66 +99,6 @@ namespace WebApplicationHotel.Controllers
             ViewBag.Message = "Toa broneerimine";
 
             return View();
-        }
-
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Booking(BookingModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var data =BookingProcessor.LoadAvailableRooms(model.CheckInDay, model.CheckOutDay);
-                List<BookingModel> rooms = new List<BookingModel>();
-                foreach (var room in data)
-                { 
-                    
-                    rooms.Add(new BookingModel
-                    {
-                        
-                         RoomSize=room.RoomSize,
-                         RoomPrice=room.RoomPrice
-                         
-                       // LastName = room.LastName,
-                       // IdentityNumber = room.IdentityNumber,
-                       // EmailAddress = room.EmailAddress
-                    });
-                }
-                TempData["loginModel"] = model;
-                ViewBag.CheckinDay = model.CheckInDay;
-                ViewBag.CheckOutDay = model.CheckOutDay;
-                //Response.Write(rooms.ToString().);
-                //return View("Details");
-                return RedirectToAction("BookingDetails");
-            }
-            ViewBag.Message = "Users list.";
-
-            return View();
-            
-            //return View();
-            
-        }
-
-        public ActionResult BookingDetails() {
-            var model = TempData["loginModel"] as BookingModel;
-            //ViewBag.Message = "Welcome " + model.CheckInDay;
-            var data = BookingProcessor.LoadAvailableRooms(model.CheckInDay, model.CheckOutDay);
-            List<BookingModel> rooms = new List<BookingModel>();
-            foreach (var room in data)
-            {
-                TimeSpan Difference = ((TimeSpan)(model.CheckOutDay - model.CheckInDay));
-                rooms.Add(new BookingModel
-                {
-                    RoomSize = room.RoomSize,
-                    RoomPrice = room.RoomPrice,
-                    RoomPriceTotal = Difference.Days * room.RoomPrice
-                    // LastName = room.LastName,
-                    // IdentityNumber = room.IdentityNumber,
-                    // EmailAddress = room.EmailAddress
-                }); ;
-            }
-            return View(rooms);
         }
 
     }

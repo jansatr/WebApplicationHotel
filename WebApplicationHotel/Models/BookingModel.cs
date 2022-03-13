@@ -38,6 +38,8 @@ namespace WebApplicationHotel.Models
 
         public int UserId { get; set; }      
 
+        public int BookingId { get; set; }
+
 
     }
 }

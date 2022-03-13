@@ -26,14 +26,14 @@ namespace DataLibrary.DataAccess
                 return con.Query<T>(sql).ToList();
             }
         }
-        //public static List<T> LoadRoom<T>(string sql, object p1)
-        //{
-        //    using (IDbConnection con = new SqlConnection(GetConnectionString()))
-        //    {
+        public static List<T> LoadDataWithParam<T>(string sql, object p1)
+        {
+            using (IDbConnection con = new SqlConnection(GetConnectionString()))
+            {
 
-        //        return con.Query<T>(sql, new { ID=p1 }).ToList();
-        //    }
-        //}
+                return con.Query<T>(sql, new { param = p1 }).ToList();
+            }
+        }
 
         public static List<T> LoadRoomsData<T>(string sql, object p1, object p2)
            // public static List<T> LoadRoomsData<T>(string sql, DateTime? DateFrom, DateTime? DateTo)
@@ -49,6 +49,14 @@ namespace DataLibrary.DataAccess
             using (IDbConnection con = new SqlConnection(GetConnectionString()))
             {
                 return con.Execute(sql,data);
+            }
+        }
+
+        public static int DeleteData<T>(string sql, T data)
+        {
+            using (IDbConnection con = new SqlConnection(GetConnectionString()))
+            {
+                return con.Execute(sql, data);
             }
         }
 

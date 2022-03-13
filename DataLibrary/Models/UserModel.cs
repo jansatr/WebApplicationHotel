@@ -14,5 +14,7 @@ namespace DataLibrary.Models
 
         public string LastName { get; set; }
         public int IdentityNumber { get; set; }
+
+        public string Password { get; set; }
     }
 }

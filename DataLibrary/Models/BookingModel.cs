@@ -23,5 +23,7 @@ namespace DataLibrary.Models
 
         public int CustomerId { get; set; }
 
+        public DateTime? CreationDateTime { get; set; }
+
     }
 }

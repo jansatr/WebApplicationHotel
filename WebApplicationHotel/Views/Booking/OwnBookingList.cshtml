@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WebApplicationHotel.Models.BookingModel>
+
+@{
+    ViewBag.Title = "Minu broneeringud";
+}
+
+<h2>@ViewBag.Title
+    </h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckInDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckOutDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomPriceTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckInDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckOutDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomPriceTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new {  id=item.BookingId  }) |
+            @Html.ActionLink("Delete", "Delete", new {  id=item.BookingId  })
+        </td>
+    </tr>
+}
+
+</table>

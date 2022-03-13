@@ -217,6 +217,10 @@
     <Content Include="Views\Booking\Booking.cshtml" />
     <Content Include="Views\Booking\BookingDetails.cshtml" />
     <Content Include="Views\Booking\Details.cshtml" />
+    <Content Include="Views\Booking\Details - Copy.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Booking\OwnBookingList.cshtml" />
+    <Content Include="Views\Booking\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
