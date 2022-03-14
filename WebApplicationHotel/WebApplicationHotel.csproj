@@ -126,7 +126,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BookingModel.cs" />
-    <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -217,7 +216,6 @@
     <Content Include="Views\Booking\Booking.cshtml" />
     <Content Include="Views\Booking\BookingDetails.cshtml" />
     <Content Include="Views\Booking\Details.cshtml" />
-    <Content Include="Views\Booking\Details - Copy.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Booking\OwnBookingList.cshtml" />
     <Content Include="Views\Booking\Delete.cshtml" />
