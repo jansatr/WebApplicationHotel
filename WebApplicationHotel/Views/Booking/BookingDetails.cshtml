@@ -17,10 +17,13 @@
             @Html.DisplayNameFor(model => model.RoomNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RoomSize)
+            @*@Html.DisplayNameFor(model => model.RoomSize)*@
+            @Html.ActionLink("Toa suurus", "BookingDetails", new { sortOrder = ViewBag.SizeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RoomPrice)
+            @*@Html.DisplayNameFor(model => model.RoomPrice)*@
+            @Html.ActionLink("Toa hind öö kohta", "BookingDetails", new { sortOrder = ViewBag.PriceSortParm })
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.RoomPriceTotal)

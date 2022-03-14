@@ -113,8 +113,10 @@ namespace WebApplicationHotel.Controllers
 
         }
 
-        public ActionResult BookingDetails()
+        public ActionResult BookingDetails(string sortOrder)
         {
+            ViewBag.SizeSortParm = String.IsNullOrEmpty(sortOrder) ? "size_desc" : "";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
             var model = TempData["loginModel"] as BookingModel;
             if (ModelState.IsValid)
             { 
@@ -138,10 +140,57 @@ namespace WebApplicationHotel.Controllers
                         RoomNumber=room.RoomNumber
                     }); ;
                 }
-                return View(rooms);
+                var students = from s in rooms
+                               select s;
+                switch (sortOrder)
+                {
+                    case "size_desc":
+                        students = students.OrderByDescending(s => s.RoomSize);
+                        break;
+                    case "Price":
+                        students = students.OrderBy(s => s.RoomPrice);
+                        break;
+                    case "price_desc":
+                        students = students.OrderByDescending(s => s.RoomPrice);
+                        break;
+                    default:
+                        students = students.OrderBy(s => s.RoomSize);
+                        break;
+                }
+                //return View(rooms);
+                return View(students.ToList());
             }
             return View();
         }
+        //public ActionResult BookingDetails()
+        //{
+        //    var model = TempData["loginModel"] as BookingModel;
+        //    if (ModelState.IsValid)
+        //    {
+        //        var data = BookingProcessor.LoadAvailableRooms(model.CheckInDay, model.CheckOutDay);
+        //        ViewBag.CheckInDay = (model.CheckInDay.Value.Date.ToString("dd-MMM-yyyy"));
+        //        ViewBag.CheckOutDay = model.CheckOutDay.Value.Date.ToString("dd-MMM-yyyy");
+        //        TempData["loginModel"] = model;
+        //        Session["CheckInDay"] = model.CheckInDay;
+        //        Session["CheckOutDay"] = model.CheckOutDay;
+        //        List<BookingModel> rooms = new List<BookingModel>();
+        //        foreach (var room in data)
+        //        {
+        //            TimeSpan Difference = ((TimeSpan)(model.CheckOutDay - model.CheckInDay));
+        //            Session["Days"] = Difference.Days;
+        //            rooms.Add(new BookingModel
+        //            {
+        //                RoomSize = room.RoomSize,
+        //                RoomPrice = room.RoomPrice,
+        //                RoomPriceTotal = Difference.Days * room.RoomPrice,
+        //                RoomId = room.RoomId,
+        //                RoomNumber = room.RoomNumber
+        //            }); ;
+        //        }
+        //        return View(rooms);
+        //    }
+        //    return View();
+        //}
         public ActionResult Details(int? id)
         {
 
