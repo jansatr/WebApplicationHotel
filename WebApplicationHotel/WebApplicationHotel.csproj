@@ -221,6 +221,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Booking\OwnBookingList.cshtml" />
     <Content Include="Views\Booking\Delete.cshtml" />
+    <Content Include="Views\Booking\DisplayAllBookings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

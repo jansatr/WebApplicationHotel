@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<WebApplicationHotel.Models.BookingModel>
 
 @{
-    ViewBag.Title = "BookingDetails";
+    ViewBag.Title = "Vabad toad";
 }
 
-<h2>BookingDetails</h2>
+<h2>@ViewBag.Title</h2>
             @ViewBag.CheckInDay
             @ViewBag.CheckOutDay
 
@@ -13,6 +13,9 @@
 </p>*@
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomNumber)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.RoomSize)
         </th>
@@ -27,28 +30,29 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomSize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomPriceTotal)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
-                @*@Html.Action("Details")*@
-                @*@Html.ActionLink("Edit", "BookingDone", new { /* id=item.PrimaryKey */ }) |*@
-                @Html.ActionLink("Details", "Details", new { id = item.RoomId }) |
-                @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                <input type="button" title="Broneeri" value="save" onclick="location.href='@Url.Action("Details", "Booking", new { id = item.RoomId})'" />
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.RoomNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RoomSize)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RoomPrice)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RoomPriceTotal)
+    </td>
+    <td>
+        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+        @*@Html.Action("Details")*@
+        @*@Html.ActionLink("Edit", "BookingDone", new { /* id=item.PrimaryKey */ }) |*@
+        @*@Html.ActionLink("Details", "Details", new { id = item.RoomId }) |*@
+        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        <input type="button" title="Broneeri" value="Broneeri" onclick="location.href='@Url.Action("Details", "Booking", new { id = item.RoomId})'" />
 
-                @ViewBag.CheckInDay
-                @ViewBag.CheckOutDay
-            </td>
-        </tr>
+    </td>
+</tr>
     }
 
 </table>

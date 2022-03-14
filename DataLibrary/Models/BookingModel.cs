@@ -24,6 +24,12 @@ namespace DataLibrary.Models
         public int CustomerId { get; set; }
 
         public DateTime? CreationDateTime { get; set; }
+        public int RoomNumber { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string EmailAddress { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace DataLibrary.BusinessLogic
 
             };
             
-            string sql = @"SELECT    [dbo].[Room].RoomSize, [dbo].[Room].RoomPrice, [dbo].[Room].Description, [dbo].[Room].RoomId
+            string sql = @"SELECT    [dbo].[Room].RoomSize, [dbo].[Room].RoomPrice, [dbo].[Room].Description, [dbo].[Room].RoomId, [dbo].[Room].RoomNumber
                             FROM      Room
                             WHERE     RoomId NOT IN (
                                          SELECT    Booking.AssignedRoomId
@@ -62,10 +62,8 @@ namespace DataLibrary.BusinessLogic
 						                              )
                                                    );";
 
-            //new System.Data.SqlClient.SqlParameter { ParameterName = "BookingFrom", Value = '2022-03-25' };
-           // return SqlDataAccess.SaveData(sql, data);
             return SqlDataAccess.LoadRoomsData<BookingModel>(sql, ArrivalDate, DepartureDate);
-            //eturn SqlDataAccess.LoadRoomsData<BookingModel>(sql, new { BookingFromDate = data.BookingFrom??DateTime.Now }, new { BookingToDate = data.BookingTo??DateTime.Now });
+           
 
         }
 
@@ -80,7 +78,7 @@ namespace DataLibrary.BusinessLogic
         public static List<BookingModel> LoadRoom(int? id)
         {
 
-            string sql = @"SELECT [dbo].[Room].RoomSize, [dbo].[Room].RoomPrice, [dbo].[Room].Description, [dbo].[Room].RoomId
+            string sql = @"SELECT [dbo].[Room].RoomSize, [dbo].[Room].RoomPrice, [dbo].[Room].Description, [dbo].[Room].RoomId, [dbo].[Room].RoomNumber
                             FROM Room WHERE [dbo].[Room].RoomId=@param;";
 
             return SqlDataAccess.LoadDataWithParam<BookingModel>(sql, id);
@@ -117,6 +115,17 @@ namespace DataLibrary.BusinessLogic
             string sql= @"DELETE from dbo.booking where BookingId = @BookingId;";
 
             return SqlDataAccess.DeleteData<BookingModel>(sql, data);
+
+        }
+        public static List<BookingModel> LoadAllBookings()
+        {
+
+            string sql = @"Declare @CurrentDate AS DATETIME=(GETDATE())
+                            SELECT Room.RoomNumber, Booking.BookingFrom, Booking.TotalAmount, Booking.BookingTo, dbo.[User].FirstName, dbo.[User].LastName, dbo.[User].EmailAddress  FROM Booking
+                            JOIN [dbo].[Room] ON RoomId=dbo.Booking.AssignedRoomId JOIN dbo.[User] ON Id=dbo.Booking.CustomerId
+                            WHERE Booking.BookingTo>= @CurrentDate;";
+
+            return SqlDataAccess.LoadData<BookingModel>(sql);
 
         }
 

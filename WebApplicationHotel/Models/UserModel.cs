@@ -18,7 +18,7 @@ namespace WebApplicationHotel.Models
         public string LastName { get; set; }
         [Display(Name ="Isikukood")]
         [Required]
-        public int IdentityNumber { get; set; }
+        public string IdentityNumber { get; set; }
 
         [Display(Name = "Email")]
         [EmailAddress(ErrorMessage ="Tegemist pole emaili aadressiga. Palun kontrolli üle")]
@@ -36,5 +36,7 @@ namespace WebApplicationHotel.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage ="Paroolid ei klapi")]
         public string  ConfirmPassword { get; set; }
+
+        public int Role { get; set; }
     }
 }

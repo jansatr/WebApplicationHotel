@@ -49,7 +49,12 @@ namespace WebApplicationHotel.Controllers
                 {
                     Session["UserID"] = (int)user.Id;
                     Session["UserName"] = user.FirstName.ToString();
-                    return RedirectToAction("../Booking/Booking");
+                    Session["UserRole"] = (int)user.Role;
+                    if ((Convert.ToInt32(Session["UserRole"]) == 1))
+                    {
+                        return RedirectToAction("../Booking/DisplayAllBookings");
+                    }
+                        return RedirectToAction("../Booking/Booking");
                 }
 
             }
@@ -88,8 +93,9 @@ namespace WebApplicationHotel.Controllers
         {
            if (ModelState.IsValid)
             {
-                int recordsCreated=UserProcessor.CreateUser(model.EmailAddress,model.FirstName,model.LastName,model.IdentityNumber);
-                return RedirectToAction("Index");
+                int recordsCreated=UserProcessor.CreateUser(model.EmailAddress,model.FirstName,model.LastName,model.IdentityNumber, model.Password);
+                TempData["Notification"] = "Konto loodud!";
+                return RedirectToAction("../Booking/index");
             }
 
             return View();
@@ -99,6 +105,12 @@ namespace WebApplicationHotel.Controllers
             ViewBag.Message = "Toa broneerimine";
 
             return View();
+        }
+        public ActionResult LogOut()
+        {
+            //FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("login", "home");
         }
 
     }

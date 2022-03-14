@@ -13,8 +13,10 @@ namespace DataLibrary.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-        public int IdentityNumber { get; set; }
+        public string IdentityNumber { get; set; }
 
         public string Password { get; set; }
+
+        public int Role { get; set; }
     }
 }

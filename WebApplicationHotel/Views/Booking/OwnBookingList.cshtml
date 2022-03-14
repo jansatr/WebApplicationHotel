@@ -12,9 +12,9 @@
 </p>*@
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.RoomId)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.CheckInDay)
         </th>
@@ -30,17 +30,17 @@
         <th>
             @Html.DisplayNameFor(model => model.RoomPriceTotal)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.UserId)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.RoomId)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.CheckInDay)
         </td>
@@ -56,13 +56,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.RoomPriceTotal)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.UserId)
-        </td>
+        </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new {  id=item.BookingId  }) |
-            @Html.ActionLink("Delete", "Delete", new {  id=item.BookingId  })
+            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new {  id=item.BookingId  }) |*@
+            @Html.ActionLink("Kustuta", "Delete", new {  id=item.BookingId  })
         </td>
     </tr>
 }

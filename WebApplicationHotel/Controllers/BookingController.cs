@@ -28,12 +28,6 @@ namespace WebApplicationHotel.Controllers
             return View();
         }
 
-        //public ActionResult Delete()
-        //{
-        //    ViewBag.Message = "Toa broneerimine";
-
-        //    return View();
-        //}
 
         public ActionResult Delete(int? id)
         {
@@ -59,13 +53,13 @@ namespace WebApplicationHotel.Controllers
             //if (booking.BookingFrom)
             TimeSpan Difference = ((TimeSpan)(booking.BookingTo - booking.BookingFrom));
             var bookings = new BookingModel();
-            bookings.RoomId = booking.RoomId;
-            bookings.RoomPrice = booking.RoomPrice;
-            bookings.BookingId = booking.BookingId;
-            bookings.CheckOutDay = booking.BookingFrom;
-            bookings.CheckInDay = booking.BookingTo;
-            bookings.RoomSize = booking.RoomSize;
-            bookings.RoomPriceTotal = Difference.Days * booking.RoomPrice;
+                bookings.RoomId = booking.RoomId;
+                bookings.RoomPrice = booking.RoomPrice;
+                bookings.BookingId = booking.BookingId;
+                bookings.CheckOutDay = booking.BookingFrom;
+                bookings.CheckInDay = booking.BookingTo;
+                bookings.RoomSize = booking.RoomSize;
+                bookings.RoomPriceTotal = Difference.Days * booking.RoomPrice;
 
             if (bookings == null)
             {
@@ -105,30 +99,23 @@ namespace WebApplicationHotel.Controllers
                         RoomSize = room.RoomSize,
                         RoomPrice = room.RoomPrice,
                         RoomId=room.RoomId
-                        // LastName = room.LastName,
-                        // IdentityNumber = room.IdentityNumber,
-                        // EmailAddress = room.EmailAddress
                     });
                 }
                 TempData["loginModel"] = model;
                 ViewBag.CheckinDay = model.CheckInDay;
                 ViewBag.CheckOutDay = model.CheckOutDay;
-                //Response.Write(rooms.ToString().);
-                //return View("Details");
                 return RedirectToAction("BookingDetails");
             }
             ViewBag.Message = "Users list.";
 
             return View();
 
-            //return View();
 
         }
 
         public ActionResult BookingDetails()
         {
             var model = TempData["loginModel"] as BookingModel;
-            //ViewBag.Message = "Welcome " + model.CheckInDay;
             if (ModelState.IsValid)
             { 
                 var data = BookingProcessor.LoadAvailableRooms(model.CheckInDay, model.CheckOutDay);
@@ -147,25 +134,14 @@ namespace WebApplicationHotel.Controllers
                         RoomSize = room.RoomSize,
                         RoomPrice = room.RoomPrice,
                         RoomPriceTotal = Difference.Days * room.RoomPrice,
-                        RoomId=room.RoomId
-                    
-                        // LastName = room.LastName,
-                        // IdentityNumber = room.IdentityNumber,
-                        // EmailAddress = room.EmailAddress
+                        RoomId=room.RoomId,
+                        RoomNumber=room.RoomNumber
                     }); ;
                 }
                 return View(rooms);
             }
             return View();
         }
-        //public ActionResult Details()
-        //{
-        //    ViewBag.Message = "Details page.";
-
-        //    return View();
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult Details(int? id)
         {
 
@@ -187,6 +163,8 @@ namespace WebApplicationHotel.Controllers
             rooms.CheckOutDay = model.CheckOutDay;
             rooms.RoomPriceTotal= ViewBag.Days * room.RoomPrice;
             rooms.RoomSize = room.RoomSize;
+            rooms.RoomNumber = room.RoomNumber;
+          
             
             return View(rooms);
         }
@@ -200,6 +178,7 @@ namespace WebApplicationHotel.Controllers
                 if (ModelState.IsValid)
             {
                 int recordsCreated = BookingProcessor.CreateBooking(model.RoomId, model.CheckInDay, model.CheckOutDay, model.UserId, model.RoomPriceTotal, CurrentDateTime);
+                TempData["Notification"] = "Tuba broneeritud!";
                 return RedirectToAction("Index");
             }
 
@@ -232,6 +211,33 @@ namespace WebApplicationHotel.Controllers
 
 
             return View(Bookings);
+        }
+
+        public ActionResult DisplayAllBookings()
+        {
+           // if (ModelState.IsValid)
+            
+                    var data = BookingProcessor.LoadAllBookings();
+                    List<BookingModel> Bookings = new List<BookingModel>();
+                    foreach (var booking in data)
+                    {
+                Bookings.Add(new BookingModel
+                {
+                    RoomNumber = booking.RoomNumber,
+                    CheckInDay = booking.BookingFrom,
+                    CheckOutDay = booking.BookingTo,
+                    RoomPriceTotal = booking.TotalAmount,
+                    FirstName = booking.FirstName,
+                    LastName = booking.LastName,
+                    EmailAddress = booking.EmailAddress
+                }); ;
+                    }
+
+
+              //      return View(data);
+             
+            return View(Bookings);
+        
         }
 
 

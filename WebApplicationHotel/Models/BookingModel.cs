@@ -40,6 +40,17 @@ namespace WebApplicationHotel.Models
 
         public int BookingId { get; set; }
 
+        [Display(Name = "Toa number")]
+        public int RoomNumber { get; set; }
+        [Display(Name = "Eesnimi")]
+        public string FirstName { get; set; }
+        [Display(Name = "Perekonnanimi")]
+        public string LastName { get; set; }
+        [Display(Name = "Email")]
+        public string EmailAddress { get; set; }
+
+
+
 
     }
 }

@@ -4,10 +4,10 @@
     ViewBag.Title = "Kasutajate nimekiri";
 }
 
-<h2>ViewUsers</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "SignUp")
+
 </p>
 <table class="table">
     <tr>
@@ -40,14 +40,7 @@
     <td>
         @Html.DisplayFor(modelItem => item.EmailAddress)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Id)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-    </td>
+
 </tr>
 }
 
